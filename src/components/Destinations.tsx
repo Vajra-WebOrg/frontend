@@ -42,8 +42,11 @@ export default function Destinations() {
   return (
     <section
       id="destinations"
-      className="py-32 bg-brand-deep text-white overflow-hidden"
+      className="py-32 bg-charcoal text-white overflow-hidden relative"
     >
+      {/* Decorative Line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20">
           <div className="max-w-3xl">
@@ -51,8 +54,9 @@ export default function Destinations() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-brand-secondary text-sm font-bold tracking-[0.3em] uppercase mb-6"
+              className="text-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-6 flex items-center"
             >
+              <span className="w-12 h-[1px] bg-gold/30 mr-4" />
               Enchanting Valleys
             </motion.h2>
             <motion.h3
@@ -60,9 +64,12 @@ export default function Destinations() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-5xl md:text-7xl font-heading font-medium leading-[1.1]"
+              className="text-5xl md:text-7xl font-heading font-black leading-[1.1] tracking-tighter"
             >
-              Sacred <span className="italic font-serif">Sanctuaries</span>{" "}
+              Sacred{" "}
+              <span className="text-gradient-gold italic font-light">
+                Sanctuaries
+              </span>{" "}
               <br />
               of the Kingdom
             </motion.h3>
@@ -72,14 +79,14 @@ export default function Destinations() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
-            className="mt-8 md:mt-0 max-w-sm text-white/60 italic text-lg leading-relaxed"
+            className="mt-8 md:mt-0 max-w-sm text-light-gray text-sm leading-relaxed border-l-2 border-gold/30 pl-6 italic"
           >
             From the subtropical lowlands to the alpine heights of the north,
             Bhutan’s landscape is as diverse as its heritage.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {destinations.map((dest, index) => (
             <motion.div
               key={dest.name}
@@ -89,30 +96,37 @@ export default function Destinations() {
               transition={{ delay: index * 0.1, duration: 0.8 }}
               className="group relative"
             >
-              <div className="relative aspect-[16/10] overflow-hidden mb-8">
+              <div className="relative aspect-[16/10] overflow-hidden mb-8 border border-gold/10 group-hover:border-gold/30 transition-all duration-700">
                 <Image
                   src={dest.image}
                   alt={dest.name}
                   fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110 brightness-75 group-hover:brightness-90"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent opacity-60" />
-                <div className="absolute bottom-8 left-8">
-                  <span className="text-brand-secondary text-xs font-bold tracking-widest uppercase mb-2 block">
-                    {dest.elevation} Elevation
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+                {/* Elevation Badge */}
+                <div className="absolute top-6 right-6 glass-gold px-4 py-2">
+                  <span className="text-gold text-[9px] font-bold tracking-[0.25em] uppercase">
+                    {dest.elevation}
                   </span>
-                  <h4 className="text-3xl font-heading text-white">
+                </div>
+
+                {/* Title Overlay */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h4 className="text-3xl font-heading font-bold text-white group-hover:text-gold transition-colors duration-500">
                     {dest.name}
                   </h4>
                 </div>
               </div>
-              <div className="flex justify-between items-start">
-                <p className="text-white/70 max-w-xs leading-relaxed italic">
+
+              <div className="flex justify-between items-start gap-6">
+                <p className="text-light-gray text-sm max-w-xs leading-relaxed italic flex-1">
                   {dest.description}
                 </p>
-                <button className="group/btn flex items-center space-x-2 text-brand-secondary font-bold text-xs tracking-widest uppercase mt-2">
+                <button className="group/btn flex items-center space-x-2 text-gold hover:text-white font-bold text-[10px] tracking-[0.25em] uppercase mt-1 transition-colors flex-shrink-0">
                   <span>Explore</span>
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-2" />
+                  <ArrowRight className="h-3 w-3 transition-transform group-hover/btn:translate-x-1" />
                 </button>
               </div>
             </motion.div>

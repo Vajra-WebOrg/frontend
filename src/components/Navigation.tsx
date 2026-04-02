@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mountain, Search, Menu } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,6 +22,7 @@ export default function Navigation() {
     { name: "Experiences", href: "/#experiences" },
     { name: "About Us", href: "/about" },
     { name: "Contact Us", href: "/contact#contact-form" },
+    { name: "Feedback", href: "/feedback" },
   ];
 
   return (
@@ -30,49 +30,70 @@ export default function Navigation() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "py-4 glass-morphism" : "py-6 bg-transparent"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+          isScrolled
+            ? "py-3 glass-dark shadow-lg shadow-black/20"
+            : "py-6 bg-gradient-to-b from-black/80 to-transparent"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="bg-brand-primary p-2 rounded-lg">
-                <Mountain className="h-6 w-6 text-brand-primary-fg" />
-              </div>
-              <span
-                className={`text-2xl font-heading font-bold tracking-tight ${isScrolled ? "text-foreground" : "text-white"}`}
+            {/* Logo */}
+            <Link href="/" className="group flex items-center space-x-3">
+              <motion.div
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="bg-gradient-to-br from-gold to-dark-gold p-2.5 rounded-lg shadow-lg"
               >
-                VAJRA
-              </span>
+                <Mountain className="h-5 w-5 text-black" />
+              </motion.div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-heading font-bold tracking-wider text-white group-hover:text-gold transition-colors duration-300">
+                  VAJRA
+                </span>
+                <span className="text-[8px] text-gold tracking-[0.3em] uppercase font-semibold -mt-1">
+                  Bhutan Beyond
+                </span>
+              </div>
             </Link>
 
-            <nav className="hidden lg:flex items-center space-x-10">
+            {/* Navigation Links */}
+            <nav className="hidden lg:flex items-center space-x-12">
               {navItems.map((item) => {
-                const isActive = (item.href.startsWith('/#') && pathname === '/') || (pathname !== '/' && item.href.startsWith(pathname));
+                const isActive =
+                  (item.href.startsWith("/#") && pathname === "/") ||
+                  (pathname !== "/" && item.href.startsWith(pathname));
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`text-sm font-medium tracking-widest uppercase transition-colors duration-300 hover:text-brand-primary ${
-                      isActive ? "text-brand-primary drop-shadow-[0_0_8px_rgba(234,179,8,0.5)] font-bold" : (isScrolled ? "text-foreground" : "text-white/90")
+                    className={`relative text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 group ${
+                      isActive
+                        ? "text-gold"
+                        : "text-light-gray hover:text-white"
                     }`}
                   >
                     {item.name}
+                    <span
+                      className={`absolute -bottom-1 left-0 h-[2px] bg-gradient-to-r from-gold to-dark-gold transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    />
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="flex items-center space-x-6">
-              <button
-                className={`${isScrolled ? "text-foreground" : "text-white"} hover:text-brand-primary transition-colors`}
+            {/* Action Buttons */}
+            <div className="flex items-center space-x-4">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-white hover:text-gold transition-colors duration-300"
               >
                 <Search className="h-5 w-5" />
-              </button>
-              <button className="lg:hidden">
-                <Menu
-                  className={`h-6 w-6 ${isScrolled ? "text-foreground" : "text-white"}`}
-                />
+              </motion.button>
+              <button className="lg:hidden text-white hover:text-gold transition-colors">
+                <Menu className="h-6 w-6" />
               </button>
             </div>
           </div>
